@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Arthur &amp; Vladimir Nesterovsky</Authors>
+    <Product>Bphx.Cool</Product>
+    <Company>https://www.oneadvanced.com/</Company>
+    <Description>A library to support C# projects generated from Cool:GEN model.</Description>
+    <RepositoryUrl>https://github.com/adv-appmod/bphx.cool.net</RepositoryUrl>
+    <Version>1.0.8</Version>
+    <EmbedAllSources>true</EmbedAllSources>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb;.xml</AllowedOutputExtensionsInPackageBuildOutputFolder>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AngleSharp" Version="0.16.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bphx.Cool.Core\Bphx.Cool.Core.csproj" />
+  </ItemGroup>
+
+  <Target Name="LocalNuget" AfterTargets="Pack">
+    <ItemGroup>
+      <Nuget Include="$(ProjectDir)bin\$(Configuration)\$(PackageId).$(PackageVersion).nupkg" />
+    </ItemGroup>
+    <Copy SourceFiles="@(Nuget)" DestinationFolder="$(ProjectDir)..\publish\$(Configuration)" />
+  </Target>
+
+</Project>

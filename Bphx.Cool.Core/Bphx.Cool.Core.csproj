@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Company>https://www.oneadvanced.com/</Company>
+    <Authors>Arthur &amp; Vladimir Nesterovsky</Authors>
+    <Description>A library to support C# projects generated from Cool:GEN model.</Description>
+    <PackageTags>Cool:GEN, CA Gen</PackageTags>
+    <RootNamespace>Bphx.Cool</RootNamespace>
+    <Product>Bphx.Cool</Product>
+    <RepositoryUrl>https://github.com/adv-appmod/bphx.cool.net</RepositoryUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.8</Version>
+    <EmbedAllSources>true</EmbedAllSources>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb;.xml</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Runtime.Caching" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <Target Name="LocalNuget" AfterTargets="Pack">
+    <ItemGroup>
+      <Nuget Include="$(ProjectDir)bin\$(Configuration)\$(PackageId).$(PackageVersion).nupkg" />
+    </ItemGroup>
+    <Copy SourceFiles="@(Nuget)" DestinationFolder="$(ProjectDir)..\publish\$(Configuration)" />
+  </Target>
+</Project>

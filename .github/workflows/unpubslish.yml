@@ -1,0 +1,30 @@
+name: .NET Unpublish from GitHub
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to delete'     
+        required: true
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - name: clean packages
+      uses: smartsquaregmbh/delete-old-packages@master
+      with:
+        names: |
+          Bphx.Cool.Core
+          Bphx.Cool.UI.Angular
+          Bphx.Cool.Client
+          Bphx.Cool.Log
+        version: ${{github.event.inputs.version}}
+#         dry-run: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
